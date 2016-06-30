@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Twitter Event Summarization</title>
+
+    <!--Import Style Sheet-->
+    <link rel='stylesheet' href='css/dashboard.css' type='text/css'></style> 
+    <!--Bootstrap CSS-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!--Import D3-->
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <!-- import twitter widget -->
+    <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  </head>
+  <body>
+
+    <div id="container" class="container">
+      
+      <h3>Twitter Event Summary</h3>
+
+      <div class="row">
+        <p>Select Event and Summary Type<p>
+        <div id="dropdowns">
+          <select id="select_event">
+            <!-- Sporting Events -->
+            <option value="UEFAChampionsLeagueFinal" selected>UEFA Champions League Final</option>
+            <option value="FrenchOpenFinals">French Open Finals</option>
+            <option value="MonacoGrandPrix">Monaco Grand Prix</option>
+            <option value="StanleyCupPlayoffsFinalGame7">Stanley Cup Playoffs Final Game 7</option>
+            <option value="24HoursofLeMans">24 Hours of Le Mans</option>
+            <option value="NBAPlayoffsFinalsGame7">NBA Playoffs Finals Game 7</option>
+            <!-- Technology Conferences -->
+            <option value="TheNextWebConferenceEurope">The Next Web Conference Europe</option>
+            <option value="RecodeCodeConference">Recode Code Conference</option>
+            <option value="GoogleIO">Google I/O</option>
+            <option value="XboxE3">Xbox E3</option>
+            <option value="LenovoTechWorld">Lenovo Tech World</option>
+            <option value="AppleWorldwideDeveloperConference">Apple Worldwide Developer Conference</option>
+          </select>
+          <select id="select_summary">
+            <option value="engagements">Engagements</option>
+            <option value="pr_subevents" selected>PR Subevents</option>
+            <option value="prplus_subevents" selected>PR+ Subevents</option>
+          
+          </select>
+        </div>
+      </div>
+      
+      <br>
+      <button type="button" id="toggle_summary" class="btn btn-primary-outline btn-sm">Toggle Summary</button>
+      <br>
+      <div id="summary"></div>
+      <br>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <p><i>adjust summary length</i><p>
+          <input type="range" id="threshold" min=1 max=25 value=7>
+          <output type="text" id="show_threshold" class="form_inline"></output> / 25 tweets
+        </div>
+        <div class="col-sm-4" id="legend">
+          <p><i>node significance rank</i></p>
+          <d3legend class="form_inline"></d3legend>
+        </div>
+        <div class="col-sm-4">
+          <p><i>select node for tweet</i><p>
+          <button type="button" id="clear_tweet" class="btn btn-secondary-outline btn-sm">Clear Tweet</button>
+        </div>
+      </div>
+
+      <div class="row">  
+        <div id="timeline" class="col-md-8"></div>
+        <div id="tweet" class="col-md-4"></div>
+      </div>
+
+      <footer>
+        <div id="foot" class="container">
+          <p class="text-muted"><i>VU Master Thesis Project</i></p>
+          <p>2016<br>Kain Nanne</p>
+          <p><a href="https://github.com/knanne/vu_msc_tweetsumm">Code & Research</a></p>
+        </div>
+      </footer>
+
+    </div>
+
+    <!--Import jQuery-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+    <!--Import Bootstrap Javascript-->
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">></script>
+
+    <!--CREATE D3 Tooltip-->
+    <div id="tooltip" class="hidden">
+      <p><span id="value"></span></p>
+    </div>
+
+    <!--Import Legend-->
+    <script type="text/javascript" src="js/legend.js"></script>
+
+    <!-- INIT JQuery Functions -->
+    <script>
+      //Load Timeline
+      $.getScript("js/timeline.js");
+      //Load Summary
+      $.getScript("js/summary.js");
+
+      //Threshold Value
+      $('#show_threshold').val($("#threshold").val());
+      $("#threshold").change(function() {
+        $('#show_threshold').val($(this).val());
+      });
+
+      //Tweet Object
+      $("#tweet").change(function() {
+        $("#tweet").empty();
+        var tweet = document.getElementById("tweet");
+        var id = tweet.getAttribute("value");
+        twttr.widgets.createTweet(id,tweet, {
+          align: 'center'
+        })
+      });
+      $("#clear_tweet").on("click", function() {
+        $("#tweet").empty();
+      });
+
+      //Toggle Summary
+      function handler1() {
+        $("#summary").empty();
+        $(this).one("click", handler2);
+      }
+      function handler2() {
+        $.getScript("js/summary.js");
+        $(this).one("click", handler1);
+      }
+      $("#toggle_summary").one("click", handler1);
+
+      //Change Options
+      $("#threshold").change(function() {
+        $("#summary").empty();
+        $("#timeline").empty();
+        $.getScript("js/timeline.js");
+        $.getScript("js/summary.js");
+      });
+      $("#select_event").change(function() {
+        $("#summary").empty();
+        $("#timeline").empty();
+        $.getScript("js/timeline.js");
+        $.getScript("js/summary.js");
+      });
+      $("#select_summary").change(function() {
+        $("#summary").empty();
+        $("#timeline").empty();
+        $.getScript("js/timeline.js");
+        $.getScript("js/summary.js");
+      });
+
+    </script>
+
+  </body>
+</html>
