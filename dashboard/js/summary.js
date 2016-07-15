@@ -24,7 +24,7 @@
           .data(summary_data)
           .enter().append("text")
             .classed("text", true)
-            .text(function(d, i) { return String("0"+i).slice(-2) + '|    ' + d.text; })
+            .text(function(d, i) { return String("0"+i).slice(-2) + '|    ' + String(d.created_at).substring(0,21) + '|    ' + d.text; })
             .attr("x", 0)
             .attr("y", function(d, i) { return 10 + 14 * i + 2; });
         

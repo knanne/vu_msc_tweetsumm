@@ -1,0 +1,16 @@
+Test Type	Train Data	Test Data	Feature Set	Model	Accuracy	Precision	Recall	F1 Score
+Intra-Domain	Sporting Event	Sporting Event	Custom	Random Forest Classifier	0.674847	0.701299	0.642857	0.670807
+Intra-Domain	Sporting Event	Sporting Event	BOW	Random Forest Classifier	0.754601	0.782051	0.72619	0.753086
+Intra-Domain	Sporting Event	Sporting Event	Custom+BOW	Random Forest Classifier	0.656442	0.705882	0.571429	0.631579
+Intra-Domain	Technology Conference	Technology Conference	Custom	Random Forest Classifier	0.707071	0.793814	0.669565	0.726415
+Intra-Domain	Technology Conference	Technology Conference	BOW	Random Forest Classifier	0.691919	0.875	0.547826	0.673797
+Intra-Domain	Technology Conference	Technology Conference	Custom+BOW	Random Forest Classifier	0.707071	0.806452	0.652174	0.721154
+Inter-Domain	Sporting Event	Technology Conference	Custom	Random Forest Classifier	0.665657	0.678261	0.630303	0.653403
+Inter-Domain	Sporting Event	Technology Conference	BOW	Random Forest Classifier	0.557576	0.609195	0.321212	0.420635
+Inter-Domain	Sporting Event	Technology Conference	Custom+BOW	Random Forest Classifier	0.642424	0.688	0.521212	0.593103
+Inter-Domain	Technology Conference	Sporting Event	Custom	Random Forest Classifier	0.630221	0.694853	0.464373	0.556701
+Inter-Domain	Technology Conference	Sporting Event	BOW	Random Forest Classifier	0.519656	0.574074	0.152334	0.240777
+Inter-Domain	Technology Conference	Sporting Event	Custom+BOW	Random Forest Classifier	0.621622	0.700405	0.425061	0.529052
+Mix-Domain	Sport+Tech	Sport+Tech	Custom	Random Forest Classifier	0.709141	0.761905	0.615385	0.680851
+Mix-Domain	Sport+Tech	Sport+Tech	BOW	Random Forest Classifier	0.720222	0.764706	0.642857	0.698507
+Mix-Domain	Sport+Tech	Sport+Tech	Custom+BOW	Random Forest Classifier	0.692521	0.735099	0.60989	0.666667
